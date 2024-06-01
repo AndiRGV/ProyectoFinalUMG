@@ -1,0 +1,39 @@
+package com.umg.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import com.umg.connection.MariaDBConnecction;
+
+public class conexionActualizar{
+
+	public static boolean actualizarEstudiante(int idestudiante, String primernombre, String segundonombre, String otronombre, String primerapellido, String segundoapellido, String otroapellido) {
+        Connection conn = MariaDBConnecction.getConnection();
+        if (conn != null) {
+            try {
+                String consulta = "UPDATE estudiantes SET primernombre = ?,segundonombre = ?, otronombre = ?, primerapellido = ?, segundoapellido = ?, otroapellido = ? WHERE idestudiante = ?";
+                PreparedStatement statement = conn.prepareStatement(consulta);
+                statement.setString(1, primernombre);
+                statement.setString(2, segundonombre);
+                statement.setString(3, otronombre);
+                statement.setString(4, primerapellido);
+                statement.setString(5, segundoapellido);
+                statement.setString(6, otroapellido);
+                statement.setInt(7, idestudiante);
+                int filasActualizadas = statement.executeUpdate();
+                statement.close();
+                conn.close();
+                return filasActualizadas > 0;
+            } catch (SQLException e) {
+                System.out.println("Error al actualizar cliente: " + e.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("No se pudo establecer la conexión.");
+            return false;
+        }
+    }
+}
