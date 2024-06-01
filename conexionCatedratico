@@ -1,0 +1,62 @@
+package com.umg.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import com.umg.connection.MariaDBConnecction;
+
+public class conexionCatedratico {
+
+	
+	public static boolean catedratico(int idcatedratico,String nombre, String apellido, String semestre, String curso) {
+	
+		
+        Connection conn = MariaDBConnecction.getConnection();
+
+        if (conn != null) {
+
+            try {
+
+               String consulta = "INSERT INTO catedraticos(idcatedratico, nombre, apellido, semestre, curso) VALUES ( ?, ?, ?, ?, ?)";
+
+                PreparedStatement statement = conn.prepareStatement(consulta);
+
+
+                statement.setInt(1, idcatedratico);
+                statement.setString(2, nombre);
+                statement.setString(3, apellido);
+                statement.setString(4, semestre);
+                statement.setString(5, curso);     
+
+              
+                int filasInsertadas = statement.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Registro creado: " + filasInsertadas);
+ 
+ 
+                statement.close();
+
+                conn.close();
+
+                return filasInsertadas > 0;
+
+            } catch (SQLException e) {
+
+            	JOptionPane.showMessageDialog(null,"Error al crear cliente: " + e.getMessage());
+
+                return false;
+
+            }
+
+        } else {
+
+            System.out.println("No se pudo establecer la conexión.");
+
+            return false;
+
+        }      
+	}
+
+}
