@@ -1,0 +1,19 @@
+CREATE TABLE `estudiantes` (
+	`idestudiante` INT(11) NOT NULL AUTO_INCREMENT,
+	`primernombre` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`segundonombre` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`otronombre` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`primerapellido` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`segundoapellido` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`otroapellido` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`genero` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`fecha_nacimiento` DATE NOT NULL,
+	`dpi` VARCHAR(20) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`fecha_creacion` TIMESTAMP NULL DEFAULT current_timestamp(),
+	`usuario_creacion` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	PRIMARY KEY (`idestudiante`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=15
+;
