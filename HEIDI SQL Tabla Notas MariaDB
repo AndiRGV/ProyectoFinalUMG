@@ -1,0 +1,18 @@
+CREATE TABLE `notas` (
+	`idestudiante` INT(11) NULL DEFAULT NULL,
+	`semestre` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`curso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`primerparcial` DOUBLE NULL DEFAULT NULL,
+	`segundoparcial` DOUBLE NULL DEFAULT NULL,
+	`tercerparcial` DOUBLE NULL DEFAULT NULL,
+	`nota_actividad` DOUBLE NULL DEFAULT NULL,
+	`parcialfinal` DOUBLE NULL DEFAULT NULL,
+	INDEX `idestudiante` (`idestudiante`) USING BTREE,
+	INDEX `curso` (`curso`) USING BTREE,
+	INDEX `semestre` (`semestre`) USING BTREE,
+	CONSTRAINT `FK_notas_cursos` FOREIGN KEY (`semestre`) REFERENCES `cursos` (`semestre`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT `FK_notas_estudiantes` FOREIGN KEY (`idestudiante`) REFERENCES `estudiantes` (`idestudiante`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
