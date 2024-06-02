@@ -1,0 +1,169 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.dao.TestDao;
+
+public class ventanaAgregar extends JFrame {
+
+	public static JTextField cajasTextoPrimerNombre = new JTextField();
+	public static JTextField cajasTextoSegundoNombre = new JTextField();
+	public static JTextField cajasTextoOtroNombre = new JTextField();
+	public static JTextField cajasTextoPrimerApellido = new JTextField();
+	public static JTextField cajasTextoSegundoApellido = new JTextField();
+	public static JTextField cajasTextoOtroApellido = new JTextField();
+	public static JTextField cajasTextoGenero = new JTextField();
+	public static JTextField cajasTextoFechaNacimiento = new JTextField();
+	public static JTextField cajasTextoDpi = new JTextField();
+	public static JTextField cajasTextoUsuario = new JTextField();
+	public static JPanel panel = new JPanel();
+	public ventanaAgregar() {
+		this.setSize(600, 600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("AGREGAR ALUMNO");
+		this.getContentPane().setBackground(Color.cyan);
+		etiquetas();
+		cajaTexto();
+		boton();
+		//datosTexto();
+		//test();
+		
+	}
+	
+	private void etiquetas(){
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setBackground(Color.white);
+		
+		JLabel primerNombre = new JLabel("Primer Nombre");
+		primerNombre.setBounds(20,20, 200, 30);
+		primerNombre.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(primerNombre);
+		
+		JLabel segundoNombre = new JLabel("Segundo Nombre");
+		segundoNombre.setBounds(20,55, 200, 30);
+		segundoNombre.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(segundoNombre);
+		
+		JLabel otroNombre = new JLabel("Otro Nombre");
+		otroNombre.setBounds(20,90, 200, 30);
+		otroNombre.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(otroNombre);
+		
+		JLabel primerApellido = new JLabel("Primer Apellido");
+		primerApellido.setBounds(20,125, 200, 30);
+		primerApellido.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(primerApellido);
+		
+		JLabel segundoApellido = new JLabel("Segundo Apellido");
+		segundoApellido.setBounds(20,160, 200, 30);
+		segundoApellido.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(segundoApellido);
+		
+		JLabel otroApellido = new JLabel("Otro Apellido");
+		otroApellido.setBounds(20,195, 200, 30);
+		otroApellido.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(otroApellido);
+		
+		JLabel genero = new JLabel("Genero");
+		genero.setBounds(20,230, 200, 30);
+		genero.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(genero);
+		
+		JLabel fechaNacimiento = new JLabel("Fecha Nacimiento");
+		fechaNacimiento.setBounds(20,265, 200, 30);
+		fechaNacimiento.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(fechaNacimiento);
+		
+		JLabel dpi = new JLabel("DPI");
+		dpi.setBounds(20,300, 200, 30);
+		dpi.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(dpi);
+		
+		JLabel  usuario = new JLabel("Usuario");
+		usuario.setBounds(20,335, 200, 30);
+		usuario.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(usuario);
+		
+	}private void cajaTexto(){
+	
+		cajasTextoPrimerNombre.setBounds(180, 20, 200, 30);
+		cajasTextoSegundoNombre.setBounds(180, 55, 200, 30);
+		cajasTextoOtroNombre.setBounds(180, 90, 200, 30);
+		cajasTextoPrimerApellido.setBounds(180, 125, 200, 30);
+		cajasTextoSegundoApellido.setBounds(180, 160, 200, 30);
+		cajasTextoOtroApellido.setBounds(180, 195, 200, 30);
+		cajasTextoGenero.setBounds(180, 230, 200, 30);
+		cajasTextoFechaNacimiento.setBounds(180, 265, 200, 30);
+		cajasTextoDpi.setBounds(180, 300, 200, 30);
+		cajasTextoUsuario.setBounds(180, 335, 200, 30);
+		
+		panel.add(cajasTextoPrimerNombre);
+		panel.add(cajasTextoSegundoNombre);
+		panel.add(cajasTextoOtroNombre);
+		panel.add(cajasTextoPrimerApellido);
+		panel.add(cajasTextoSegundoApellido);
+		panel.add(cajasTextoOtroApellido);
+		panel.add(cajasTextoGenero);
+		panel.add(cajasTextoFechaNacimiento);
+		panel.add(cajasTextoDpi);
+		panel.add(cajasTextoUsuario);
+		
+		
+	}private void boton() {
+		JButton botonIngresar = new JButton();
+		JButton botonInicio = new JButton();
+		
+		botonInicio.setBounds(400, 400, 100, 40);
+		botonInicio.setText("Salir");
+		panel.add(botonInicio);
+		botonIngresar.setBounds(250, 400, 100, 40);
+		botonIngresar.setText("Ingresar");
+		panel.add(botonIngresar);
+		botonInicio.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				ventanasOpciones ventanaNota = new ventanasOpciones();
+				ventanaNota.setVisible(true);
+				dispose();
+			}
+		});
+
+		ActionListener oyenteDeAccion = new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e) {
+				String primernombre = cajasTextoPrimerNombre.getText();
+				String segundonombre = cajasTextoSegundoNombre.getText();
+				String otronombre = cajasTextoOtroNombre.getText();
+				String primerapellido = cajasTextoPrimerApellido.getText();
+				String segundoapellido = cajasTextoPrimerNombre.getText();
+				String otroapellido = cajasTextoOtroApellido.getText();
+				String genero = cajasTextoGenero.getText();
+				String fecha_nacimiento = cajasTextoFechaNacimiento.getText();
+				String dpi = cajasTextoDpi.getText();
+				
+				String usuario_creacion = cajasTextoUsuario.getText();
+				
+
+				TestDao.estudiante(primernombre,  segundonombre, otronombre,  primerapellido,  segundoapellido, otroapellido, genero, fecha_nacimiento,  dpi,  usuario_creacion);
+				
+			}
+		};
+		botonIngresar.addActionListener(oyenteDeAccion);
+		
+	
+	
+	}
+	
+}
