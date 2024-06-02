@@ -1,0 +1,15 @@
+CREATE TABLE `cursos` (
+	`idestudiante` INT(11) NULL DEFAULT NULL,
+	`semestre` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`primercurso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`segundocurso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`tercercurso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`cuartocurso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`quintocurso` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	INDEX `idestudiante` (`idestudiante`) USING BTREE,
+	INDEX `semestre` (`semestre`) USING BTREE,
+	CONSTRAINT `FK_cursos_estudiantes` FOREIGN KEY (`idestudiante`) REFERENCES `estudiantes` (`idestudiante`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
