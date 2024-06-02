@@ -1,0 +1,146 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.dao.conexionActualizar;
+
+public class VentanaActualizar extends JFrame {
+		public static JTextField cajasTextoIdEstudiante = new JTextField();
+		public static JTextField cajasTextoPrimerNombre = new JTextField();
+		public static JTextField cajasTextoSegundoNombre = new JTextField();
+		public static JTextField cajasTextoOtroNombre = new JTextField();
+		public static JTextField cajasTextoPrimerApellido = new JTextField();
+		public static JTextField cajasTextoSegundoApellido = new JTextField();
+		public static JTextField cajasTextoOtroApellido = new JTextField();
+		public static JPanel panel = new JPanel();
+		public VentanaActualizar() {
+			this.setSize(600, 600);
+			setLocationRelativeTo(null);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			setTitle("ACTUALIZAR ALUMNO");
+			this.getContentPane().setBackground(Color.CYAN);
+			etiquetas();
+			cajaTexto();
+			boton();
+			//datosTexto();
+			//test();
+			
+		}
+		
+		private void etiquetas(){
+			this.getContentPane().add(panel);
+			panel.setLayout(null);
+			panel.setBackground(Color.white);
+			
+			JLabel idestudiante = new JLabel("ID Estudiante");
+			idestudiante.setBounds(20,50, 200, 30);
+			idestudiante.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(idestudiante);
+			JLabel primerNombre = new JLabel("Primer Nombre");
+			primerNombre.setBounds(20,100, 200, 30);
+			primerNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(primerNombre);
+			
+			JLabel segundoNombre = new JLabel("Segundo Nombre");
+			segundoNombre.setBounds(20,150, 200, 30);
+			segundoNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(segundoNombre);
+			
+			JLabel otroNombre = new JLabel("Otro Nombre");
+			otroNombre.setBounds(20,200, 200, 30);
+			otroNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(otroNombre);
+			
+			JLabel primerApellido = new JLabel("Primer Apellido");
+			primerApellido.setBounds(20,250, 200, 30);
+			primerApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(primerApellido);
+			
+			JLabel segundoApellido = new JLabel("Segundo Apellido");
+			segundoApellido.setBounds(20,300, 200, 30);
+			segundoApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(segundoApellido);
+			
+			JLabel otroApellido = new JLabel("Otro Apellido");
+			otroApellido.setBounds(20,350, 200, 30);
+			otroApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(otroApellido);
+			
+			
+			
+			
+		}private void cajaTexto(){
+		
+			cajasTextoIdEstudiante.setBounds(180, 50, 200, 30);
+			cajasTextoPrimerNombre.setBounds(180, 100, 200, 30);
+			cajasTextoSegundoNombre.setBounds(180, 150, 200, 30);
+			cajasTextoOtroNombre.setBounds(180, 200, 200, 30);
+			cajasTextoPrimerApellido.setBounds(180, 250, 200, 30);
+			cajasTextoSegundoApellido.setBounds(180, 300, 200, 30);
+			cajasTextoOtroApellido.setBounds(180, 350, 200, 30);
+			
+			
+			panel.add(cajasTextoIdEstudiante);
+			panel.add(cajasTextoPrimerNombre);
+			panel.add(cajasTextoSegundoNombre);
+			panel.add(cajasTextoOtroNombre);
+			panel.add(cajasTextoPrimerApellido);
+			panel.add(cajasTextoSegundoApellido);
+			panel.add(cajasTextoOtroApellido);
+			
+			
+		}private void boton() {
+			JButton botonIngresar = new JButton();
+			JButton botonInicio = new JButton();
+			
+			botonInicio.setBounds(400, 400, 100, 40);
+			botonInicio.setText("Salir");
+			panel.add(botonInicio);
+			botonIngresar.setBounds(250, 400, 100, 40);
+			botonIngresar.setText("Ingresar");
+			panel.add(botonIngresar);
+			botonInicio.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventanasOpciones ventanaNota = new ventanasOpciones();
+					ventanaNota.setVisible(true);
+					dispose();
+				}
+			});
+
+			ActionListener oyenteDeAccion = new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e) {
+					
+					int idestudiantes = Integer.parseInt(cajasTextoIdEstudiante.getText());
+					String primernombre = cajasTextoPrimerNombre.getText();
+					String segundonombre = cajasTextoSegundoNombre.getText();
+					String otronombre = cajasTextoOtroNombre.getText();
+					String primerapellido = cajasTextoPrimerApellido.getText();
+					String segundoapellido = cajasTextoPrimerNombre.getText();
+					String otroapellido = cajasTextoOtroApellido.getText();
+					
+					
+					
+					
+
+					conexionActualizar.actualizarEstudiante(idestudiantes, primernombre, segundonombre, otronombre, primerapellido, segundoapellido, otroapellido);
+					
+				}
+			};
+			botonIngresar.addActionListener(oyenteDeAccion);
+			
+		
+		
+		}
+		
+	}
