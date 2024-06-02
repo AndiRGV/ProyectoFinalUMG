@@ -1,0 +1,95 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.tablas.tablaBaseDatos;
+import com.umg.tablas.tablasBuscar;
+
+public class ventanaBuscar extends JFrame{
+	public static JTextField cajasTextoIdEstudiante = new JTextField();
+	public static JPanel panel  = new JPanel();
+	public ventanaBuscar() {
+
+		this.setSize(600,600);
+		//setLocation(500, 200);
+		//setBounds(500, 200, 600,600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("BUSCAR ALUMNO");
+		this.getContentPane().setBackground(Color.cyan);
+		ElPanel();
+		cajaTexto();
+		botone();
+	}
+	private void ElPanel() {
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setBackground(Color.CYAN);
+		
+		JLabel etiqueta = new JLabel("BUSCAR");
+		etiqueta.setBounds(220, 10, 150, 30);
+		panel.add(etiqueta);
+		etiqueta.setFont(new Font("arial",Font.PLAIN,30));
+		
+		JLabel idEstudiante = new JLabel("Coloca el ID Estudiante");
+		idEstudiante.setBounds(60, 100, 200, 15);
+		panel.add(idEstudiante);
+		idEstudiante.setFont(new Font("arial",Font.PLAIN,15));
+	
+		panel.add(idEstudiante);
+	}private void cajaTexto() {
+		
+		cajasTextoIdEstudiante.setBounds(250, 95, 200, 30);
+		panel.add(cajasTextoIdEstudiante);	
+		
+	}public void botone() {
+		JButton  botonIngresar = new JButton();
+		JButton botonInicio = new JButton();
+		JButton botonMostrar = new JButton();
+		botonInicio.setBounds(400, 400, 100, 40);
+		botonInicio.setText("Salir");
+		panel.add(botonInicio);
+		botonInicio.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				ventanasOpciones ventanaNota = new ventanasOpciones();
+				ventanaNota.setVisible(true);
+				dispose();
+			}
+		});
+		botonIngresar.setBounds(220, 150, 100, 40);
+		botonIngresar.setText("Ingresar");
+		panel.add(botonIngresar);
+		botonIngresar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int idestudiantes = Integer.parseInt(cajasTextoIdEstudiante.getText());
+				
+				 tablasBuscar.tablasBuscar(idestudiantes);
+				
+			}
+		});
+		botonMostrar.setBounds(100, 400, 100, 40);
+		botonMostrar.setText("Mostra Base");
+		panel.add(botonMostrar);
+		botonMostrar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				tablaBaseDatos.TablaDatos();
+			}
+		});
+	}
+	
+	
+	
+
+}
