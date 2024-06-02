@@ -1,0 +1,94 @@
+package com.umg.tablas;
+
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+	import javax.swing.JScrollPane;
+	import javax.swing.JTable;
+
+
+import com.umg.connection.MariaDBConnecction;
+
+import ventanas.ventanaBuscar;
+import ventanas.ventanasOpciones;
+
+
+	public class tablasBuscar {
+		public static JFrame ventana;
+	
+		
+		public static String primerNombre;
+		public static String primerApellido ;
+		public static String fechaNacimiento ;
+		
+		
+		public static boolean tablasBuscar(int idestudiante){
+			//Scanner sc = new Scanner(System.in);
+			//System.out.println("Ingrese");
+			//int idestudiante = sc.nextInt();
+			
+			  Connection conn = MariaDBConnecction.getConnection();
+			  	
+				
+		        if (conn != null) {
+		            try {
+		            	
+		            	
+		                String consulta = "SELECT * FROM estudiantes WHERE idestudiante = ?;";
+		                PreparedStatement statement = conn.prepareStatement(consulta);
+		                statement.setInt(1, idestudiante);
+		                ResultSet resultSet = statement.executeQuery();
+		                while (resultSet.next()) {
+		                	
+		                    primerNombre = resultSet.getString("primernombre");
+		                    primerApellido = resultSet.getString("primerapellido");
+		                    fechaNacimiento = resultSet.getString("fecha_nacimiento");
+		                    
+		
+		                    String [] cabezera = {"Primer Nombre","Primer Apellido","Fecha de Naciomiento"};
+		        			String [][] datos = {{primerNombre,primerApellido,fechaNacimiento}};
+		        			
+		        			JTable tabla = new JTable(datos, cabezera);
+		        			JScrollPane Js = new JScrollPane(tabla);
+		        			Js.setPreferredSize(new Dimension(400,250));
+		        			
+		        			ventana = new JFrame("Tablas");
+			    			ventana.setLayout(new FlowLayout());
+			    			ventana.setSize(700,200);
+			    			ventana.setLocationRelativeTo(null);
+			    			ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			    			ventana.setVisible(true);
+			    			ventana.add(Js);
+			    			JButton botonInicio = new JButton();
+			    			botonInicio.setBounds(400, 400, 100, 40);
+			    			botonInicio.setText("Salir");
+			    			ventana.add(botonInicio);
+			    			botonInicio.addActionListener(new ActionListener() {
+			    				
+			    				public void actionPerformed(ActionEvent e) {
+			    					ventanaBuscar ventanaNota = new ventanaBuscar();
+			    					ventanaNota.setVisible(true);
+			    				
+			    				}
+			    			});
+		                }
+		                resultSet.close();
+		                statement.close();
+		                conn.close();
+		            } catch (SQLException e) {
+		                System.out.println("Error al leer estudiantes: " + e.getMessage());
+		            }
+		        } else {
+		            System.out.println("No se pudo establecer la conexión.");
+		        }
+				return false;
