@@ -1,0 +1,159 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.dao.conexionCursos;
+
+
+	public class ventaAgregarCurso extends JFrame {
+
+		public static JTextField cajasTextoIdEstudiante = new JTextField();
+		public static JComboBox listadoSemestre = new JComboBox();
+		public static JComboBox listadoPrimerCurso = new JComboBox();
+		public static JComboBox listadoSegundoCurso = new JComboBox();
+		public static JComboBox listadoTercerCurso = new JComboBox();
+		public static JComboBox listadoCuartoCurso = new JComboBox();
+		public static JComboBox listadoQuintoCurso = new JComboBox();
+		
+		public static JPanel panel = new JPanel();
+		public  ventaAgregarCurso() {
+			this.setSize(600, 600);
+			setLocationRelativeTo(null);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			setTitle("AGREGAR CURSOS");
+			this.getContentPane().setBackground(Color.CYAN);
+			etiquetas();
+			cajaTexto();
+			boton();
+			
+			
+		}
+		
+		private void etiquetas(){
+			this.getContentPane().add(panel);
+			panel.setLayout(null);
+			panel.setBackground(Color.white);
+			
+			JLabel primerNombre = new JLabel("ID Estudiante");
+			primerNombre.setBounds(20,20, 200, 30);
+			primerNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(primerNombre);
+			
+			JLabel segundoNombre = new JLabel("Semestre");
+			segundoNombre.setBounds(20,55, 200, 30);
+			segundoNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(segundoNombre);
+			
+			JLabel otroNombre = new JLabel("Primer Curso");
+			otroNombre.setBounds(20,90, 200, 30);
+			otroNombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(otroNombre);
+			
+			JLabel primerApellido = new JLabel("Segundo Curso");
+			primerApellido.setBounds(20,125, 200, 30);
+			primerApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(primerApellido);
+			
+			JLabel segundoApellido = new JLabel("Tercer Curso");
+			segundoApellido.setBounds(20,160, 200, 30);
+			segundoApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(segundoApellido);
+			
+			JLabel otroApellido = new JLabel("Cuarto Curso");
+			otroApellido.setBounds(20,195, 200, 30);
+			otroApellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(otroApellido);
+			
+			JLabel genero = new JLabel("Quinto Curso");
+			genero.setBounds(20,230, 200, 30);
+			genero.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(genero);
+			
+			
+			
+		}private void cajaTexto(){
+		 String [] semestre = {"Primero","Segundo","Tercero","Cuarto","Quinto","Sexto","Septimo","Octavo","Noveno","Decimo"};
+		 listadoSemestre = new JComboBox(semestre);
+		 listadoSemestre.setBounds(180, 55, 200, 30);
+		 String [] primerCurso = {"Desarrollo Humano","Metodologia de la Investigacion","Contabilidad I","Introduccion a Sistemas","Logica de Sistemas","Precalculo","Algebra Lineal","Algoritmos","Contabilidad II","Matematica Discreta","Fisica","Programacion","Calculo","Estadistica"};
+		 listadoPrimerCurso = new JComboBox(primerCurso);
+		 listadoPrimerCurso.setBounds(180, 90, 200, 30);
+		 listadoSegundoCurso = new JComboBox(primerCurso);
+		 listadoSegundoCurso.setBounds(180, 125, 200, 30);
+		 listadoTercerCurso = new JComboBox(primerCurso);
+		 listadoTercerCurso.setBounds(180, 160, 200, 30);
+		 listadoCuartoCurso = new JComboBox(primerCurso);
+		 listadoCuartoCurso.setBounds(180, 195, 200, 30);
+		 listadoQuintoCurso = new JComboBox(primerCurso);
+		 listadoQuintoCurso.setBounds(180, 230, 200, 30);
+		 
+			
+			
+		cajasTextoIdEstudiante.setBounds(180, 20, 200, 30);
+			
+			
+			panel.add(cajasTextoIdEstudiante);
+			panel.add(listadoSemestre);
+			panel.add(listadoPrimerCurso);
+			panel.add(listadoSegundoCurso);
+			panel.add(listadoTercerCurso);
+			panel.add(listadoCuartoCurso);
+			panel.add(listadoQuintoCurso);
+			
+			
+			
+		}private void boton() {
+			JButton botonRegistrar = new JButton();
+			JButton botonInicio = new JButton();
+			botonInicio.setBounds(400, 400, 100, 40);
+			botonInicio.setText("Salir");
+			panel.add(botonInicio);
+			botonInicio.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventanasOpciones ventanaNota = new ventanasOpciones();
+					ventanaNota.setVisible(true);
+					ventaAgregarCurso  ventanaAgregar = new ventaAgregarCurso();
+					ventanaAgregar.getDefaultCloseOperation();
+					dispose();
+				}
+			});
+			
+			botonRegistrar.setBounds(250, 400, 100, 40);
+			botonRegistrar.setText("Registrar");
+			panel.add(botonRegistrar);
+			ActionListener oyenteDeAccion = new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e) {
+					
+					int idestudiantes = Integer.parseInt(cajasTextoIdEstudiante.getText());
+					String semestre = (String) listadoSemestre.getSelectedItem();
+					String primercurso = (String) listadoPrimerCurso.getSelectedItem();
+					String segundocurso = (String) listadoSegundoCurso.getSelectedItem();
+					String tercercurso = (String) listadoTercerCurso.getSelectedItem();
+					String cuartocurso = (String) listadoCuartoCurso.getSelectedItem();
+					String quintocurso = (String) listadoQuintoCurso.getSelectedItem();
+					
+
+				conexionCursos.cursos(idestudiantes,  semestre, primercurso,  segundocurso,  tercercurso, cuartocurso, quintocurso);
+			
+				}
+			};
+			botonRegistrar.addActionListener(oyenteDeAccion);
+			
+		
+		
+		}
+		
+}
+
