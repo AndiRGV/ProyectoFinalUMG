@@ -1,0 +1,67 @@
+package com.umg.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import com.umg.connection.MariaDBConnecction;
+
+public class conexionNotas {
+	
+	public static boolean notas(int idestudiante, String semestre,String curso, double primernota, double segundanota,  double terceranota,  double cuartanota, double quintanota) {
+	
+		
+        Connection conn = MariaDBConnecction.getConnection();
+
+        if (conn != null) {
+
+            try {
+
+               String consulta = "INSERT INTO notas (idestudiante, semestre, curso, primerparcial, segundoparcial, tercerparcial, nota_actividad, parcialfinal) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                PreparedStatement statement = conn.prepareStatement(consulta);
+
+
+                statement.setInt(1, idestudiante);
+                statement.setString(2, semestre);
+                statement.setString(3, curso);
+                statement.setDouble(4, primernota);
+                statement.setDouble(5, segundanota);
+                statement.setDouble(6, terceranota);
+                statement.setDouble(7, cuartanota);
+                statement.setDouble(8, quintanota);
+                
+
+              
+                int filasInsertadas = statement.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Registro creado: " + filasInsertadas);
+ 
+ 
+                statement.close();
+
+                conn.close();
+
+                return filasInsertadas > 0;
+
+            } catch (SQLException e) {
+
+                System.out.println("Error al crear cliente: " + e.getMessage());
+
+                return false;
+
+            }
+
+        } else {
+
+        	JOptionPane.showMessageDialog(null,"No se pudo establecer la conexión.");
+
+            return false;
+
+        }      
+	}
+	
+	
+
+}
