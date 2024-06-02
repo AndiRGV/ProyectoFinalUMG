@@ -1,0 +1,51 @@
+package com.umg.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import com.umg.connection.MariaDBConnecction;
+
+public class elimarEstudiante {
+
+	public static Scanner sc = new Scanner(System.in);
+	
+	public static boolean eliminarEstudiante(int eliminarId) {
+		
+
+        Connection conn = MariaDBConnecction.getConnection();
+
+        if (conn != null) {
+        	
+            try {
+
+                String consulta = "DELETE FROM estudiantes WHERE idestudiante = ?;";
+                PreparedStatement statement = conn.prepareStatement(consulta);
+                statement.setInt(1, eliminarId);
+                int filasEliminadas = statement.executeUpdate();
+                JOptionPane.showMessageDialog(null,"eliminado");
+                statement.close();
+
+                conn.close();
+
+                return filasEliminadas > 0;
+                
+            } catch (SQLException e) {
+
+            	JOptionPane.showMessageDialog(null,"Error al eliminar Estudiante: " + e.getMessage());
+
+                return false;
+            }
+
+        } else {
+
+        	JOptionPane.showMessageDialog(null,"No se pudo establecer la conexión.");
+
+            return false;
+            }
+    }
+
+}
