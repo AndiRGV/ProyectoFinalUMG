@@ -1,0 +1,134 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.dao.conexionCatedratico;
+
+public class ventanaCatedratico extends JFrame {
+
+		public static JTextField cajasTextoIdCatedratico = new JTextField();
+		public static JTextField cajasTextoNombre = new JTextField();
+		public static JTextField cajasTextoApellido = new JTextField();
+		public static JComboBox listadoSemestre = new JComboBox();
+		public static JComboBox listaCurso = new JComboBox();
+	
+		public static JPanel panel = new JPanel();
+		public  ventanaCatedratico() {
+			this.setSize(600, 600);
+			setLocationRelativeTo(null);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			setTitle("AGREGAR CATEDRATICO");
+			this.getContentPane().setBackground(Color.CYAN);
+			etiquetas();
+			cajaTexto();
+			boton();
+			//datosTexto();
+			//test();
+			
+		}
+		
+		private void etiquetas(){
+			this.getContentPane().add(panel);
+			panel.setLayout(null);
+			panel.setBackground(Color.white);
+			
+			JLabel idCatedratico = new JLabel("ID Catedratico");
+			idCatedratico.setBounds(20,50, 200, 30);
+			idCatedratico.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(idCatedratico);
+			
+			JLabel nombre = new JLabel("Nombre");
+			nombre.setBounds(20,100, 200, 30);
+			nombre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(nombre);
+			
+			JLabel apellido = new JLabel("Apellido");
+			apellido.setBounds(20,150, 200, 30);
+			apellido.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(apellido);
+			
+			JLabel semestre = new JLabel("Semestre");
+			semestre.setBounds(20,200, 200, 30);
+			semestre.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(semestre);
+			
+			JLabel curso = new JLabel("Curso");
+			curso.setBounds(20,250, 200, 30);
+			curso.setFont(new Font("arial",Font.PLAIN,15));
+			panel.add(curso);
+			
+			
+		}private void cajaTexto(){
+		 String [] semestre = {"Primero","Segundo","Tercero","Cuarto","Quinto","Sexto","Septimo","Octavo","Noveno","Decimo"};
+		 listadoSemestre = new JComboBox(semestre);
+		 listadoSemestre.setBounds(180, 200, 200, 30);
+		 String [] curso = {"Desarrollo Humano","Metodologia de la Investigacion","Contabilidad I","Introduccion a Sistemas","Logica de Sistemas","Precalculo","Algebra Lineal","Algoritmos","Contabilidad II","Matematica Discreta","Fisica","Programacion","Calculo","Estadistica"};
+		 listaCurso = new JComboBox(curso);
+		 listaCurso.setBounds(180,250, 200, 30);
+		
+			
+			
+		 cajasTextoIdCatedratico.setBounds(180, 50, 200, 30);
+		 cajasTextoNombre.setBounds(180, 100, 200, 30);
+		 cajasTextoApellido.setBounds(180, 150, 200, 30);
+			
+			
+			panel.add(cajasTextoIdCatedratico);
+			panel.add(cajasTextoNombre);
+			panel.add(cajasTextoApellido);
+			panel.add(listadoSemestre);
+			panel.add(listaCurso);
+			
+			
+			
+		}private void boton() {
+			JButton botonRegistrar = new JButton();
+			JButton botonInicio = new JButton();
+			botonInicio.setBounds(400, 400, 100, 40);
+			botonInicio.setText("Salir");
+			panel.add(botonInicio);
+			botonInicio.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventanasOpciones ventanaNota = new ventanasOpciones();
+					ventanaNota.setVisible(true);
+					dispose();
+				}
+			});
+			
+			botonRegistrar.setBounds(250, 400, 100, 40);
+			botonRegistrar.setText("Registrar");
+			panel.add(botonRegistrar);
+			ActionListener oyenteDeAccion = new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e) {
+					
+					int idcatedratico = Integer.parseInt(cajasTextoIdCatedratico.getText());
+					String nombre = cajasTextoNombre.getText();
+					String apellido = cajasTextoApellido.getText();
+					String semestre = (String) listadoSemestre.getSelectedItem();
+					String curso = (String) listaCurso.getSelectedItem();
+					
+					
+
+				conexionCatedratico.catedratico(idcatedratico, nombre, apellido, semestre, curso);
+					
+				}
+			};
+			botonRegistrar.addActionListener(oyenteDeAccion);
+			
+		
+		
+		}
+		
+}
