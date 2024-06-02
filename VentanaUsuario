@@ -1,0 +1,104 @@
+package ventanas;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+public class ventana extends JFrame{
+	public static JPanel panel  = new JPanel();
+	public static JTextField cajasTextoUsuario = new JTextField();
+	public static JPasswordField cajasTextoContrasena = new JPasswordField();
+	public ventana() {
+		
+		
+		this.setSize(600,600);
+		//setLocation(500, 200);
+		//setBounds(500, 200, 600,600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("ADMINISTRADOR DE ALUMNOS");
+		this.getContentPane().setBackground(Color.cyan);
+		iniciarComponentes();
+		cajaTexto();
+		botones();
+	}
+	
+	public void iniciarComponentes() {
+	    
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setBackground(Color.CYAN);
+		
+		JLabel etiqueta = new JLabel("Usuario");
+		etiqueta.setBounds(220, 10, 150, 30);
+		panel.add(etiqueta);
+		etiqueta.setFont(new Font("arial",Font.PLAIN,30));
+		
+		JLabel nombreUsuario = new JLabel("Nombre de usuario");
+		nombreUsuario.setBounds(60, 100, 300, 30);
+		nombreUsuario.setFont(new Font("arial",Font.PLAIN,20));
+		panel.add(nombreUsuario);
+		
+		JLabel contrasena = new JLabel("Contraseña");
+		contrasena.setBounds(60, 200, 300, 20);
+		contrasena.setFont(new Font("arial",Font.PLAIN,20));
+		panel.add(contrasena);
+	}
+	
+	private void cajaTexto() {
+		
+		
+		cajasTextoUsuario.setBounds(250, 100, 200, 30);
+		cajasTextoContrasena.setBounds(250, 200, 200, 30);
+		
+		panel.add(cajasTextoUsuario);
+		panel.add(cajasTextoContrasena);
+		
+		
+	}public void usuario(){
+		String usuarios ="admin";
+		String contrasena ="2024";
+		if(usuarios.equals(cajasTextoUsuario.getText())) {
+			if(contrasena.equals(cajasTextoContrasena.getText())) {
+				botones();
+			}else {
+				JOptionPane.showMessageDialog(null, "Ingresastes datos incorrectos");
+			}
+		}
+		
+	}
+	public void botones() {
+		 
+		JButton  botonIngresar = new JButton();
+		
+		botonIngresar.setBounds(220, 250, 100, 40);
+		botonIngresar.setText("Ingresar");
+		panel.add(botonIngresar);
+		botonIngresar.setEnabled(true);
+		botonIngresar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	String usuarios ="admin";
+				String contrasena ="2024";
+				if(usuarios.equals(cajasTextoUsuario.getText())) {
+					if(contrasena.equals(cajasTextoContrasena.getText())) {
+		    	ventanasOpciones ventanaDos = new ventanasOpciones();
+		    	ventanaDos.setVisible(true);
+		    	dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, "Ingresastes datos incorrectos");
+				}
+		    	  
+		    } 
+		    }
+		});
+	
+	}
+
+}
