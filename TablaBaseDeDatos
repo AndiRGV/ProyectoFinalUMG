@@ -1,0 +1,97 @@
+package com.umg.tablas;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JPanel;
+
+import com.umg.connection.MariaDBConnecction;
+
+import ventanas.ventanaBuscar;
+
+public class tablaBaseDatos {
+	 public static void main(String[] args) {
+	        TablaDatos();
+	    }
+
+	    public static JFrame ventana;
+
+	    public static boolean TablaDatos() {
+	        Connection conn = MariaDBConnecction.getConnection();
+
+	        if (conn != null) {
+	            try {
+	                String consulta = "SELECT * FROM estudiantes;";
+	                PreparedStatement statement = conn.prepareStatement(consulta);
+
+	                ResultSet resultSet = statement.executeQuery();
+	                
+	               
+	                List<String[]> listaDatos = new ArrayList<>();
+
+	                while (resultSet.next()) {
+	                    String primerNombre = resultSet.getString("primernombre");
+	                    String primerApellido = resultSet.getString("primerapellido");
+	                    String fechaNacimiento = resultSet.getString("fecha_nacimiento");
+
+	                  
+	                    listaDatos.add(new String[]{primerNombre, primerApellido, fechaNacimiento});
+	                }
+
+	         
+	                resultSet.close();
+	                statement.close();
+	                conn.close();
+
+	              
+	                String[][] datos = new String[listaDatos.size()][3];
+	                datos = listaDatos.toArray(datos);
+
+	                String[] cabezera = {"Primer Nombre", "Primer Apellido", "Fecha de Nacimiento"};
+	                JTable tabla = new JTable(datos, cabezera);
+	                JScrollPane js = new JScrollPane(tabla);
+	                js.setPreferredSize(new Dimension(400, 250));
+	                
+	                ventana = new JFrame("Tablas");
+	                ventana.setLayout(new FlowLayout());
+	                ventana.setSize(700, 200);
+	                ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	                ventana.setVisible(true);
+	                ventana.add(js);
+	                JButton botonInicio = new JButton();
+	    			botonInicio.setBounds(400, 400, 100, 40);
+	    			botonInicio.setText("Salir");
+	    			ventana.add(botonInicio);
+	    			botonInicio.addActionListener(new ActionListener() {
+	    				
+	    				public void actionPerformed(ActionEvent e) {
+	    					ventanaBuscar ventanaNota = new ventanaBuscar();
+	    					ventanaNota.setVisible(true);
+	    					
+							
+	    				}
+	    			});
+
+	            } catch (SQLException e) {
+	                System.out.println("Error al leer estudiantes: " + e.getMessage());
+	                return false;
+	            }
+	        } else {
+	            System.out.println("No se pudo establecer la conexión.");
+	            return false;
+	        }
+	        return true;
+	    }
+}
