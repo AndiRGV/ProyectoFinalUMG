@@ -1,0 +1,156 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.umg.dao.conexionNotas;
+
+public class ventanaNotas extends JFrame {
+
+	public static JTextField cajasTextoIdEstudiante = new JTextField();
+	public static JComboBox listadoSemestre = new JComboBox();
+	public static JComboBox listadoCurso = new JComboBox();
+	public static JTextField cajasTextoCurso = new JTextField();
+	public static JTextField cajasTextoNotaUno = new JTextField();
+	public static JTextField cajasTextoNotaDos = new JTextField();
+	public static JTextField cajasTextoNotaTres = new JTextField();
+	public static JTextField cajasTextoNotaCuatro = new JTextField();
+	public static JTextField cajasTextoNotaQuinta = new JTextField();
+	public static JPanel panel = new JPanel();
+	public ventanaNotas() {
+		this.setSize(600, 600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("AGREGAR NOTAS");
+		this.getContentPane().setBackground(Color.CYAN);
+		etiquetas();
+		cajaTexto();
+		boton();
+		//datosTexto();
+		//test();
+		
+	}
+	
+	private void etiquetas(){
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setBackground(Color.white);
+		
+		JLabel idEstudiante = new JLabel("ID Estudiante");
+		idEstudiante.setBounds(20,20, 200, 30);
+		idEstudiante.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(idEstudiante);
+		
+		JLabel Semestre = new JLabel("Semestre");
+		Semestre.setBounds(20,60, 200, 30);
+		Semestre.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(Semestre);
+		
+		JLabel curso = new JLabel("Curso");
+		curso.setBounds(20,100, 200, 30);
+		curso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(curso);
+		
+		JLabel primerCurso = new JLabel("Primer Parcial");
+		primerCurso.setBounds(20,140, 200, 30);
+		primerCurso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(primerCurso);
+		
+		JLabel segundoCurso = new JLabel("Segundo Parcial");
+		segundoCurso.setBounds(20,180, 200, 30);
+		segundoCurso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(segundoCurso);
+		
+		JLabel tercerCurso = new JLabel("Tercer Parcial");
+		tercerCurso.setBounds(20,220, 200, 30);
+		tercerCurso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(tercerCurso);
+		
+		JLabel cuartoCurso = new JLabel("Actividades");
+		cuartoCurso.setBounds(20,260,200, 30);
+		cuartoCurso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(cuartoCurso);
+		
+		JLabel quintoCurso = new JLabel("Parcial Final");
+		quintoCurso.setBounds(20,300, 200, 30);
+		quintoCurso.setFont(new Font("arial",Font.PLAIN,15));
+		panel.add(quintoCurso);
+		
+		
+	}private void cajaTexto(){
+		String [] semestre = {"Primero","Segundo","Tercero","Cuarto","Quinto","Sexto","Septimo","Octavo","Noveno","Decimo"};
+		 listadoSemestre = new JComboBox(semestre);
+		 String [] Curso = {"Desarrollo Humano","Metodologia de la Investigacion","Contabilidad I","Introduccion a Sistemas","Logica de Sistemas","Precalculo","Algebra Lineal","Algoritmos","Contabilidad II","Matematica Discreta","Fisica","Programacion","Calculo","Estadistica"};
+		 listadoCurso = new JComboBox(Curso);
+		cajasTextoIdEstudiante.setBounds(180, 20, 200, 30);
+		listadoSemestre.setBounds(180, 60, 200, 30);
+		listadoCurso.setBounds(180, 100, 200, 30);
+		cajasTextoNotaUno.setBounds(180, 140, 200, 30);
+		cajasTextoNotaDos.setBounds(180, 180, 200, 30);
+		cajasTextoNotaTres.setBounds(180, 220, 200, 30);
+		cajasTextoNotaCuatro.setBounds(180, 260, 200, 30);
+		cajasTextoNotaQuinta.setBounds(180, 300, 200, 30);
+		
+		
+		panel.add(cajasTextoNotaUno);
+		panel.add(listadoSemestre);
+		panel.add(listadoCurso);
+		panel.add(cajasTextoIdEstudiante);
+		panel.add(cajasTextoNotaDos);
+		panel.add(cajasTextoNotaTres);
+		panel.add(cajasTextoNotaCuatro);
+		panel.add(cajasTextoNotaQuinta);
+		
+		
+		
+	}private void boton() {
+		JButton botonIngresar = new JButton();
+		JButton botonInicio = new JButton();
+		botonInicio.setBounds(400, 400, 100, 40);
+		botonInicio.setText("Salir");
+		panel.add(botonInicio);
+		botonInicio.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				ventanasOpciones ventanaNota = new ventanasOpciones();
+				ventanaNota.setVisible(true);
+				dispose();
+			}
+		});
+		botonIngresar.setBounds(200, 400, 200, 40);
+		botonIngresar.setText("Ingresar Notas");
+		panel.add(botonIngresar);
+		ActionListener oyenteDeAccion = new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e) {
+				int idestudiantes = Integer.parseInt(cajasTextoIdEstudiante.getText());
+				String semestre = (String) listadoSemestre.getSelectedItem();
+				String curso = (String) listadoCurso.getSelectedItem();
+				double primernota =  Double.parseDouble(cajasTextoNotaUno.getText());
+				double segundanota = Double.parseDouble(cajasTextoNotaDos.getText());
+				double terceranota = Double.parseDouble(cajasTextoNotaTres.getText());
+				double cuartanota = Double.parseDouble(cajasTextoNotaCuatro.getText());
+				double quintanota = Double.parseDouble(cajasTextoNotaQuinta.getText());
+		
+				
+
+				conexionNotas.notas(idestudiantes, semestre, curso,  primernota,  segundanota, terceranota, cuartanota, quintanota);
+				
+			}
+		};
+		botonIngresar.addActionListener(oyenteDeAccion);
+		
+	
+	
+	}
+	
+}
