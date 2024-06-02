@@ -1,0 +1,149 @@
+package ventanas;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class ventanasOpciones extends JFrame {
+	public static JPanel panel  = new JPanel();
+	public ventanasOpciones() {
+
+		this.setSize(600,600);
+		//setLocation(500, 200);
+		//setBounds(500, 200, 600,600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("Administrador de opciones");
+		this.getContentPane().setBackground(Color.cyan);
+		ElPanel();
+		botonBusca();
+		botonElimina();
+		botonIngresa();
+		botonNotas();
+		botonCursos();
+		botonCatedratico();
+		botonActualizar();
+	}
+	private void ElPanel() {
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setBackground(Color.CYAN);
+	}
+	private void botonIngresa() {
+		JButton  botonIngresarDatos = new JButton();
+		botonIngresarDatos.setBounds(100, 100, 150, 40);
+		botonIngresarDatos.setText("Ingresar Datos");
+		panel.add(botonIngresarDatos);
+		botonIngresarDatos.setEnabled(true);
+		botonIngresarDatos.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					ventanaAgregar ventanaAgrega = new ventanaAgregar();
+					ventanaAgrega.setVisible(true);
+					dispose();
+				}
+			});
+	}
+		private void botonBusca() {
+		JButton  botonBuscarDatos = new JButton();
+		botonBuscarDatos.setBounds(300, 100, 150, 40);
+		botonBuscarDatos.setText("Buscar Datos");
+		panel.add(botonBuscarDatos);
+		botonBuscarDatos.setEnabled(true);
+		botonBuscarDatos.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				ventanaBuscar ventanaBusca = new ventanaBuscar();
+				ventanaBusca.setVisible(true);
+				dispose();
+			}
+		});
+		
+		}
+		
+		
+		private void botonElimina() {
+		JButton  botonEliminarDatos = new JButton();
+		botonEliminarDatos.setBounds(100, 200, 150, 40);
+		botonEliminarDatos.setText("Eliminar Datos");
+		panel.add(botonEliminarDatos);
+		botonEliminarDatos.setEnabled(true);
+		botonEliminarDatos.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				ventanaEliminar ventanaElimina = new ventanaEliminar();
+				ventanaElimina.setVisible(true);
+				dispose();
+			}
+		});
+	}
+		
+		private void botonCursos() {
+			JButton  botonAgregarCurso = new JButton();
+			botonAgregarCurso.setBounds(300, 200, 150, 40);
+			botonAgregarCurso.setText("Agregar Cursos");
+			panel.add(botonAgregarCurso);
+			botonAgregarCurso.setEnabled(true);
+			botonAgregarCurso.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventaAgregarCurso ventanaCurso = new ventaAgregarCurso();
+					ventanaCurso.setVisible(true);
+					dispose();
+				}
+			});
+		}
+		private void botonNotas() {
+			JButton  botonAgregarNotas = new JButton();
+			botonAgregarNotas.setBounds(100,300, 150, 40);
+			botonAgregarNotas.setText("Agregar Notas");
+			panel.add(botonAgregarNotas);
+			botonAgregarNotas.setEnabled(true);
+			botonAgregarNotas.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventanaNotas ventanaNota = new ventanaNotas();
+					ventanaNota.setVisible(true);
+					dispose();
+				}
+			});
+		}
+		private void botonCatedratico() {
+			JButton  botonCatedraticos = new JButton();
+			botonCatedraticos.setBounds(300,300, 150, 40);
+			botonCatedraticos.setText("Agregar Catedratico");
+			panel.add(botonCatedraticos);
+			botonCatedraticos.setEnabled(true);
+			botonCatedraticos.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					ventanaCatedratico ventanaCatedraticos = new ventanaCatedratico();
+					ventanaCatedraticos.setVisible(true);
+					dispose();
+				}
+			});
+		}private void botonActualizar() {
+			JButton  botonActualizar = new JButton();
+			botonActualizar.setBounds(180,400, 200, 40);
+			botonActualizar.setText("Editar Nombre Estudiante");
+			panel.add(botonActualizar);
+			botonActualizar.setEnabled(true);
+			botonActualizar.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					VentanaActualizar ventanaActualizar = new VentanaActualizar();
+					ventanaActualizar.setVisible(true);
+					dispose();
+				}
+			});
+		}
+}
+	
+		
+
+	
+
+
